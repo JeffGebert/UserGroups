@@ -1,9 +1,16 @@
-var express = require('express');
-var router = express.Router();
+let express = require('express');
+let router = express.Router();
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
 
-module.exports = router;
+module.exports = (db) => {
+  router.get('/', (req, res) => {
+
+    db.query(`SELECT * FROM users`).then(data => {
+      res.send(data.rows)
+    });
+
+  })
+
+  return router;
+
+};

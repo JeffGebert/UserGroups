@@ -1,14 +1,34 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+require('dotenv').config();
+
+const PORT = process.env.DB_PORT;
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 const cors = require('cors');
+const { Pool } = require('pg');
+const bodyParser = require('body-parser')
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 
-var app = express();
+
+const usersRouter = require('./routes/users');
+const groupsRouter = require('./routes/groups');
+const groupmembersRouter = require('./routes/groupmembers');
+
+
+const app = express();
+const db = new Pool({
+  host:process.env.DB_HOST,
+  port:process.env.DB_PORT,
+  user:process.env.DB_USER,
+  password:process.env.DB_PASS,
+  database:process.env.DB_NAME
+});
+
+
+db.connect();
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -16,13 +36,18 @@ app.set('view engine', 'jade');
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(cors());
+app.use(cors())
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json())
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/', usersRouter(db));
+app.use('/users', usersRouter(db));
+app.use('/groups', groupsRouter(db));
+app.use('/groupmembers',groupmembersRouter(db));
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -39,5 +64,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+
 
 module.exports = app;
