@@ -1,0 +1,33 @@
+.body{
+    align-items: center;
+    justify-content: center;
+    border:2px solid red;
+    height:100%;
+    width:100%;
+    background-color: whitesmoke;
+}
+.links-container{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+}
+.users-button{
+    margin:100px;
+    width:600px; 
+    height:300px;
+    background-color: black;
+    font-size: 100px;
+    border-radius: 10px;
+    color:white;
+
+}
+.groups-button{
+    width:600px; 
+    height:300px;
+    background-color: orangered;
+    font-size: 100px;
+    border-radius: 10px;
+
+}
