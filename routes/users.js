@@ -12,10 +12,10 @@ module.exports = (db) => {
   })
 
   router.post('/', (req, res) => {
-
+    console.log("hello")
     let query = {
       text: `INSERT INTO users (first_name, last_name)
-    VALUES ($1, $2)`,
+      VALUES ($1, $2)`,
       values: [
         req.body.firstname,
         req.body.lastname,
@@ -24,9 +24,25 @@ module.exports = (db) => {
     
     db.query(query).then(data => {
       res.send("inserted into db")
-
+      
     })
+    
+  })
+  
+  router.delete('/', (req, res) => {
 
+    console.log("request",req.body.user_id)
+
+
+    let query = {
+      text: `DELETE FROM users WHERE users.id = $1`,
+      values: [
+        req.body.user_id
+      ]
+    }
+    db.query(query).then(data  => {
+      res.send("deleted from db")
+    })
 
   })
 

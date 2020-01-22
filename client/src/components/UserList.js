@@ -10,25 +10,29 @@ export default function UserList(props) {
 
 
     useEffect(() => {
-        console.log("this is state before the call", state)
         axios
           .get(`http://localhost:3000/users`)
           .then(response => {
-              console.log("this is the state", state)
             return setState(response.data);
           });
     
-      });
+      },[state]);
     
 
     const list = state.map(user => {
         return (
             <UserListItem
-              key={user.id}
+              id={user.id}
               firstname={user.first_name}
               lastname={user.last_name}
             />
         );
     });
-        return <div className="user-list">{list}</div>;
+        return (
+
+        <div>
+            <h1>List of Users</h1>
+            <div className="user-list">{list}</div>
+        </div>
+        )
 }
