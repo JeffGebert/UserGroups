@@ -12,7 +12,6 @@ module.exports = (db) => {
   })
 
   router.post('/', (req, res) => {
-    console.log("hello")
     let query = {
       text: `INSERT INTO users (first_name, last_name)
       VALUES ($1, $2)`,
@@ -30,8 +29,6 @@ module.exports = (db) => {
   })
   
   router.delete('/', (req, res) => {
-
-    console.log("request",req.body.user_id)
 
 
     let query = {

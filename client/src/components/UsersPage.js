@@ -1,29 +1,54 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./UsersPage.scss";
 import UserList from "./UserList";
 
-import { Link } from "react-router-dom";
 
 
 
 export default function UsersPage(props) {
-    const [state, setState] = useState({
+    const [name, setName] = useState({
         firstname:"",
         lastname:""
     });
+    const [users, setUsers] = useState([])
+   
+    //tracker is for mananging the useEffect so we don't end up on infinite loops
+    const [tracker, setTracker] = useState(0)
+
+    function update() {
+      axios
+        .get(`http://localhost:3000/users`)
+        .then(res => {
+            setUsers(res.data)
+        });
+    }
+    
+    function onDelete(ev,user,update) {
+        ev.preventDefault();
+        axios
+        .delete(`http://localhost:3000/users`, { data: { user_id: user } }).then(response => {
+            setTracker(tracker+1)
+        })
+    }
     
     const createUser = function(user) {
-        console.log("state", state);
-        return axios.post(`http://localhost:3000`, user);
+        return axios.post(`http://localhost:3000`, user).then(res =>{
+            setTracker(tracker+1)
+        });
     };
     
     function onSave(ev) {
-        let user ="";
         ev.preventDefault();
-        createUser(state)
+        createUser(name)
     
     }
+
+    useEffect(() => {
+        update()
+        },[tracker])
+
+
     return (
         <div>
         <div className="user-form">
@@ -33,9 +58,9 @@ export default function UsersPage(props) {
                 type="text"
                 className="input-field"
                 placeholder="first name"
-                value={state.firstname}
+                value={name.firstname}
                 onChange={event =>
-                    setState({ ...state, firstname: event.target.value})
+                    setName({ ...name, firstname: event.target.value})
                 }
                 />
                 <label>Last Name:</label>
@@ -43,16 +68,16 @@ export default function UsersPage(props) {
                 type="text"
                 className="input-field"
                 placeholder="last name"
-                value={state.lastname}
+                value={name.lastname}
                 onChange={event =>
-                    setState({ ...state, lastname: event.target.value})
+                    setName({ ...name, lastname: event.target.value})
                 }
                 />
                 <button className="create-user">Add User</button>
             </form>
         </div>
         <div className="user-list">
-            <UserList/>
+            <UserList ondelete={onDelete} users={users}/>
         </div>
         </div>
     )

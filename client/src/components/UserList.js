@@ -1,30 +1,21 @@
-import React, { useState, useEffect, useContext } from "react";
+import React from "react";
 import "./UserList.scss";
-import axios from "axios";
 import UserListItem from "./UserListItem";
 
 
 export default function UserList(props) {
 
-    const [state, setState] = useState([])
 
-
-    useEffect(() => {
-        axios
-          .get(`http://localhost:3000/users`)
-          .then(response => {
-            return setState(response.data);
-          });
-    
-      },[state]);
     
 
-    const list = state.map(user => {
+    const list = props.users.map((users,index) => {
         return (
             <UserListItem
-              id={user.id}
-              firstname={user.first_name}
-              lastname={user.last_name}
+              key={index}
+              id={users.id}
+              firstname={users.first_name}
+              lastname={users.last_name}
+              ondelete={props.ondelete}
             />
         );
     });
