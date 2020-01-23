@@ -24,7 +24,7 @@ export default function UsersPage(props) {
         });
     }
     
-    function onDelete(ev,user,update) {
+    function onDelete(ev,user) {
         ev.preventDefault();
         axios
         .delete(`http://localhost:3000/users`, { data: { user_id: user } }).then(response => {
@@ -33,7 +33,7 @@ export default function UsersPage(props) {
     }
     
     const createUser = function(user) {
-        return axios.post(`http://localhost:3000`, user).then(res =>{
+        return axios.post(`http://localhost:3000/users`, user).then(res =>{
             setTracker(tracker+1)
         });
     };
