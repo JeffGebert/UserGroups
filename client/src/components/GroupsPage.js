@@ -13,10 +13,9 @@ export default function GroupsPage(props) {
     })
     const [group, setGroups] = useState([]);
     const [members, setMembers] = useState([]);
-
     const [selectedGroup, setSelectedGroup] = useState();
-
     const [tracker, setTracker] = useState(0)
+    const [unselectedUsers, setunselectedUsers] = useState([]);
 
 
     function update() {
@@ -35,10 +34,13 @@ export default function GroupsPage(props) {
                 setMembers(res.data)
             })
 
-
+            
+            
+            
+            
         }
     }
-
+    
     function onDelete(ev, group) {
         ev.preventDefault();
         axios
@@ -46,7 +48,7 @@ export default function GroupsPage(props) {
             setTracker(tracker+1)
         })
     }
-
+    
     function onDeleteGroupMember(ev, id) {
         ev.preventDefault();
         axios
@@ -54,26 +56,35 @@ export default function GroupsPage(props) {
             setTracker(tracker+1)
         })
     }
-
+    
     const createGroup = function(groupname) {
         return axios.post(`http://localhost:3000/groups`, groupname).then(res =>{
             setTracker(tracker+1)
         });
     };
-
+    
     const selectGroup = function (ev, group) {
         ev.preventDefault()
         setSelectedGroup(group)
         axios
         .get(`http://localhost:3000/groupmembers`, {
-         params: { groupname: group }}).then(res =>{
-             setMembers(res.data)
-             console.log("members", members)
+            params: { groupname: group }}).then(res =>{
+                setMembers(res.data)
+                console.log("members", members)
+            })
+        axios
+        .get(`http://localhost:3000/groupmembers`, {
+        params: { groupname: group,
+                    unselected:true,
+                }}).then(res =>{
+            setunselectedUsers(res.data)
         })
-    };
-
-
-    function onSave(ev) {
+    
+        console.log("unselectedUsers", unselectedUsers)
+        };
+        
+        
+        function onSave(ev) {
         ev.preventDefault();
         createGroup(groupname)
     
@@ -108,7 +119,7 @@ export default function GroupsPage(props) {
         </div>
         <div className="member-list">
             {members != [] ? (
-                <MemberList members={members} ondeletegroupmember={onDeleteGroupMember}/>
+                <MemberList members={members} ondeletegroupmember={onDeleteGroupMember} unselectedUsers={unselectedUsers}/>
             ) : (
                 null
             )}

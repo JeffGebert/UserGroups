@@ -6,7 +6,16 @@ let router = express.Router();
 module.exports = (db) => {
     router.get('/', (req, res) => {
 
-      if (req.query.groupname) {
+      if (req.query.groupname  && req.query.unselected) {
+
+        query = {
+          text: `SELECT groupmembers.id, users.first_name, users.last_name FROM groupmembers JOIN users ON groupmembers.user_id = users.id JOIN groups ON groupmembers.group_id = groups.id  WHERE groups.name != $1`,
+          values: [
+            req.query.groupname
+          ]
+        }
+
+      }else if (req.query.groupname) {
 
         query = {
           text: `SELECT groupmembers.id, users.first_name, users.last_name FROM groupmembers JOIN users ON groupmembers.user_id = users.id JOIN groups ON groupmembers.group_id = groups.id  WHERE groups.name = $1`,
