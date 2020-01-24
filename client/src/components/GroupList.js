@@ -14,6 +14,7 @@ export default function GroupList(props) {
               id={groups.id}
               groupname={groups.name}
               ondelete={props.ondelete}
+              selectgroup={props.selectgroup}
             />
         );
     });
