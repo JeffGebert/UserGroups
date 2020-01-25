@@ -5,7 +5,7 @@ let router = express.Router();
 module.exports = (db) => {
   router.get('/', (req, res) => {
 
-    db.query(`SELECT * FROM users`).then(data => {
+    db.query(`SELECT * FROM users ORDER BY users.id`).then(data => {
       res.send(data.rows)
     });
 
@@ -28,6 +28,26 @@ module.exports = (db) => {
     
   })
   
+
+  router.put('/', (req, res) => {
+
+    let query = {
+      text: `UPDATE users SET first_name = $1, last_name = $2 where users.id = $3`,
+      values: [
+        req.body.firstname,
+        req.body.lastname,
+        req.body.id
+      ]
+    }
+    console.log("query", query)
+    db.query(query).then(data => {
+      res.send("db updated")
+    })
+  })
+
+
+
+  
   router.delete('/', (req, res) => {
 
 
@@ -45,5 +65,4 @@ module.exports = (db) => {
 
   return router;
 
-};
-
+}

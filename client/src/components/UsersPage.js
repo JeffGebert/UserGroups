@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./UsersPage.scss";
 import UserList from "./UserList";
-
-
+import EasyEdit, { Types } from "react-easy-edit";
 
 
 export default function UsersPage(props) {
@@ -37,6 +36,13 @@ export default function UsersPage(props) {
             setTracker(tracker+1)
         });
     };
+
+    const modify = function (modifiedName) {
+        return axios.put(`http://localhost:3000/users`, modifiedName).then(res =>{
+            setTracker(tracker+1)
+        })
+
+    }
     
     function onSave(ev) {
         ev.preventDefault();
@@ -53,7 +59,6 @@ export default function UsersPage(props) {
         <div>
         <div className="user-form">
             <form autoComplete ="off" onSubmit={event => onSave(event)}>
-                <label>First Name:</label>
                 <input
                 type="text"
                 className="input-field"
@@ -77,7 +82,7 @@ export default function UsersPage(props) {
             </form>
         </div>
         <div className="user-list">
-            <UserList ondelete={onDelete} users={users}/>
+            <UserList onsave={onSave} ondelete={onDelete} modify={modify} users={users}/>
         </div>
         </div>
     )

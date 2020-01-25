@@ -16,6 +16,8 @@ export default function UserList(props) {
               firstname={users.first_name}
               lastname={users.last_name}
               ondelete={props.ondelete}
+              onsave={props.onsave}
+              modify={props.modify}
             />
         );
     });

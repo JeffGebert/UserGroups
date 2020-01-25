@@ -2,7 +2,7 @@ import React from 'react';
 import LandingPage from "./components/LandingPage";
 import UsersPage from "./components/UsersPage";
 import GroupsPage from "./components/GroupsPage";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import './App.css';
 
