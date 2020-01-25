@@ -14,7 +14,7 @@ module.exports = (db) => {
       }
      }else{
          query = {
-          text: `SELECT * FROM groups`
+          text: `SELECT * FROM groups ORDER BY id`
         }
 
       }
@@ -24,9 +24,22 @@ module.exports = (db) => {
       });
   
     })
+
+    router.put('/', (req, res) => {
+
+      let query = {
+        text: `UPDATE groups SET name = $1 WHERE groups.id = $2`,
+        values: [
+          req.body.groupname,
+          req.body.id
+        ]
+      }
+      db.query(query).then(data => {
+        res.send("db updated")
+      })
+    })
     
     router.post('/', (req, res) => {
-      console.log("req.body", req.body.groupname)
       let query = {
         text: `INSERT INTO groups (name)
         VALUES ($1)`,

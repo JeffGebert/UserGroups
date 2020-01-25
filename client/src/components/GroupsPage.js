@@ -60,6 +60,13 @@ export default function GroupsPage(props) {
         })
 
     }
+    const modifyGroup = function (modifiedGroup) {
+        console.log("hello")
+        return axios.put(`http://localhost:3000/groups`, modifiedGroup).then(res =>{
+            setTracker(tracker+1)
+        })
+
+    }
     
     const createGroup = function(groupname) {
         return axios.post(`http://localhost:3000/groups`, groupname).then(res =>{
@@ -123,7 +130,7 @@ export default function GroupsPage(props) {
             </form>
         </div>
         <div className="group-list">
-            <GroupList ondelete={onDelete} groups={group} selectgroup={selectGroup}/>
+            <GroupList ondelete={onDelete} groups={group} selectgroup={selectGroup} modifygroup={modifyGroup}/>
         </div>
         <div className="member-list">
             {members != [] ? (

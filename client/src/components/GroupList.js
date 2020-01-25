@@ -15,6 +15,7 @@ export default function GroupList(props) {
               groupname={groups.name}
               ondelete={props.ondelete}
               selectgroup={props.selectgroup}
+              modifygroup={props.modifygroup}
             />
         );
     });

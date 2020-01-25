@@ -32,7 +32,6 @@ module.exports = (db) => {
         
       }
 
-      console.log("query",query);
         
       db.query(query).then(data => {
         res.send(data.rows)
@@ -43,7 +42,6 @@ module.exports = (db) => {
    router.post('/', (req,res) => {
 
 
-     console.log("req.body", req.body)
      let query = {
        text: `INSERT into groupmembers (user_id, group_id)
        VALUES ($1, $2)`,

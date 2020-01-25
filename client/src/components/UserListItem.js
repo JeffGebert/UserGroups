@@ -4,7 +4,6 @@ import "./UserListItem.scss";
 
 
 export default function UserListItem(props) {
-    console.log("props from suerslistietm", props)
 
     const [editing, setEditing] = useState(false)
     const [modifiedName, setmodifiedName] = useState({

@@ -39,7 +39,6 @@ module.exports = (db) => {
         req.body.id
       ]
     }
-    console.log("query", query)
     db.query(query).then(data => {
       res.send("db updated")
     })
