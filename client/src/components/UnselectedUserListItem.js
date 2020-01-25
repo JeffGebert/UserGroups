@@ -8,7 +8,7 @@ return (
     <div className = "group-list-item">
         <span className = "first-name">{props.firstname} </span>
         <span className = "last-name">{props.lastname}</span>
-        <button className = "add-user">Add User</button>
+        <button className = "add-user" onClick={event => props.addmember(event,props.id,props.selectedgroup)}>Add User</button>
     </div>
 )
 

@@ -26,8 +26,11 @@ export default function MemberList(props) {
         return (
             <UnslectedUserListItem
                 key={index}
+                id = {users.id}
                 firstname={users.first_name}
                 lastname={users.last_name}
+                addmember={props.addmember}
+                selectedgroup={props.selectedgroup}
             />
 
         )

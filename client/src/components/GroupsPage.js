@@ -16,6 +16,7 @@ export default function GroupsPage(props) {
     const [selectedGroup, setSelectedGroup] = useState();
     const [tracker, setTracker] = useState(0)
     const [unselectedUsers, setunselectedUsers] = useState([]);
+    const [groupID, setGroupID] = useState([]);
 
 
     function update() {
@@ -25,19 +26,14 @@ export default function GroupsPage(props) {
               setGroups(res.data)
           });
         
-        if (selectedGroup!=null){
+        if (selectedGroup!=null) {
             console.log("inside")
 
             axios
             .get(`http://localhost:3000/groupmembers`, {
             params: { groupname: group }}).then(res =>{
                 setMembers(res.data)
-            })
-
-            
-            
-            
-            
+            })       
         }
     }
     
@@ -56,6 +52,14 @@ export default function GroupsPage(props) {
             setTracker(tracker+1)
         })
     }
+
+    const addMember = function(ev, id,selectedGroup) {
+        axios
+        .post(`http://localhost:3000/groupmembers`, { data: {user_id: id, selected_group:selectedGroup, group_id:groupID }}).then(response => {
+            setTracker(tracker+1)
+        })
+
+    }
     
     const createGroup = function(groupname) {
         return axios.post(`http://localhost:3000/groups`, groupname).then(res =>{
@@ -67,10 +71,15 @@ export default function GroupsPage(props) {
         ev.preventDefault()
         setSelectedGroup(group)
         axios
+        .get(`http://localhost:3000/groups`, {
+            params: { group: group }}).then(res =>{
+                setGroupID(res.data[0].id)
+            })
+        
+        axios
         .get(`http://localhost:3000/groupmembers`, {
             params: { groupname: group }}).then(res =>{
                 setMembers(res.data)
-                console.log("members", members)
             })
         axios
         .get(`http://localhost:3000/groupmembers`, {
@@ -80,7 +89,6 @@ export default function GroupsPage(props) {
             setunselectedUsers(res.data)
         })
     
-        console.log("unselectedUsers", unselectedUsers)
         };
         
         
@@ -119,7 +127,7 @@ export default function GroupsPage(props) {
         </div>
         <div className="member-list">
             {members != [] ? (
-                <MemberList members={members} ondeletegroupmember={onDeleteGroupMember} unselectedUsers={unselectedUsers}/>
+                <MemberList members={members} ondeletegroupmember={onDeleteGroupMember} unselectedUsers={unselectedUsers} addmember={addMember} selectedgroup={selectedGroup}/>
             ) : (
                 null
             )}

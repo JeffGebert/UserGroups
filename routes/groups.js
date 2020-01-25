@@ -4,8 +4,22 @@ let router = express.Router();
 
 module.exports = (db) => {
     router.get('/', (req, res) => {
+
+      if (req.query.group) {
+        query = {
+          text: `SELECT id FROM groups where name = $1`,
+          values: [
+            req.query.group
+          ]
+      }
+     }else{
+         query = {
+          text: `SELECT * FROM groups`
+        }
+
+      }
   
-      db.query(`SELECT * FROM groups`).then(data => {
+      db.query(query).then(data => {
         res.send(data.rows)
       });
   
