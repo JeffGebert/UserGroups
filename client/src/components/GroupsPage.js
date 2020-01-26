@@ -8,6 +8,7 @@ import MemberList from "./MemberList"
 
 
 export default function GroupsPage(props) {
+    
     const [groupname, setGroupname] = useState({
         groupname:""
     })
@@ -17,24 +18,27 @@ export default function GroupsPage(props) {
     const [tracker, setTracker] = useState(0)
     const [unselectedUsers, setunselectedUsers] = useState([]);
     const [groupID, setGroupID] = useState([]);
-
-
+    
     function update() {
-        axios
-          .get(`http://localhost:3000/groups`)
-          .then(res => {
-              setGroups(res.data)
-          });
-        
-        if (selectedGroup!=null) {
 
+        console.log("selectedGroup", selectedGroup)
+ 
+        if (selectedGroup!=null) {
             axios
             .get(`http://localhost:3000/groupmembers`, {
-            params: { groupname: group }}).then(res =>{
-                setMembers(res.data)
-            }) 
-                  
-        }
+                params: { groupname: selectedGroup }}).then(res =>{
+                    console.log("res.data", res.data)
+                    setMembers(res.data)
+                }) 
+                
+            } else {
+            axios
+                .get(`http://localhost:3000/groups`)
+                .then(res => {
+                    setGroups(res.data)
+                });
+                
+            }
     }
     
     function onDelete(ev, group) {
@@ -49,16 +53,16 @@ export default function GroupsPage(props) {
         ev.preventDefault();
         axios
         .delete(`http://localhost:3000/groupmembers`, { data: { groupmembers_id: id } }).then(response => {
-            setTracker(tracker+1)
         })
     }
 
-    const addMember = function(ev, id,selectedGroup) {
+    const addMember = function(ev, id, selectedGroup) {
         ev.preventDefault()
         axios
         .post(`http://localhost:3000/groupmembers`, { data: {user_id: id, selected_group:selectedGroup, group_id:groupID }}).then(response => {
             setTracker(tracker+1)
         })
+
 
     }
     const modifyGroup = function(modifiedGroup) {
@@ -99,7 +103,6 @@ export default function GroupsPage(props) {
         
         
         function onSave(ev) {
-        ev.preventDefault();
         createGroup(groupname)
     
     }

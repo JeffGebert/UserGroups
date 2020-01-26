@@ -39,7 +39,7 @@ export default function MemberList(props) {
     
 
         <div>
-            <h1>List of members</h1>
+            <h1>List of {props.selectedgroup} members</h1>
             <div className="members-list">{list}</div>
             <Popup trigger={<button className="add-member"> Add Member</button>} position="right">
             <div className="unselected-users-list">{unselectedUsersList}</div>
