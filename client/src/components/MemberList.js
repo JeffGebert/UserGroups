@@ -26,7 +26,7 @@ export default function MemberList(props) {
         return (
             <UnslectedUserListItem
                 key={index}
-                id = {users.id}
+                id = {users.user_id}
                 firstname={users.first_name}
                 lastname={users.last_name}
                 addmember={props.addmember}

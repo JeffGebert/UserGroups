@@ -11,6 +11,8 @@ export default function GroupListItem(props) {
 
     })
 
+
+
 return (
     <div className = "group-list-item">
     {editing1 ? (
@@ -24,14 +26,14 @@ return (
                     setmodifiedGroup({ ...modifiedGroup, groupname: event.target.value})
                 }
         />
-        <button className = "edit">Save</button>
+        <button className = "Save">Save</button>
         <button className = "Delete" onClick={event => props.ondelete(event,props.id)}>Delete</button>
         </form>
 
     ) : (
     
         <div className = "group-list-item">
-        <span className = "name" onClick={event => props.selectgroup(event,props.groupname)}>{props.groupname}</span>
+        <span className = "name" onClick={event => props.selectgroup(props.groupname)}>{props.groupname}</span>
         <button className = "edit" onClick={event => setEditing1(true)}>Edit</button>
         <button className = "Delete" onClick={event => props.ondelete(event,props.id)}>Delete</button>
         </div>

@@ -27,13 +27,13 @@ export default function GroupsPage(props) {
           });
         
         if (selectedGroup!=null) {
-            console.log("inside")
 
             axios
             .get(`http://localhost:3000/groupmembers`, {
             params: { groupname: group }}).then(res =>{
                 setMembers(res.data)
-            })       
+            }) 
+                  
         }
     }
     
@@ -54,14 +54,14 @@ export default function GroupsPage(props) {
     }
 
     const addMember = function(ev, id,selectedGroup) {
+        ev.preventDefault()
         axios
         .post(`http://localhost:3000/groupmembers`, { data: {user_id: id, selected_group:selectedGroup, group_id:groupID }}).then(response => {
             setTracker(tracker+1)
         })
 
     }
-    const modifyGroup = function (modifiedGroup) {
-        console.log("hello")
+    const modifyGroup = function(modifiedGroup) {
         return axios.put(`http://localhost:3000/groups`, modifiedGroup).then(res =>{
             setTracker(tracker+1)
         })
@@ -74,8 +74,7 @@ export default function GroupsPage(props) {
         });
     };
     
-    const selectGroup = function (ev, group) {
-        ev.preventDefault()
+    const selectGroup = function (group) {
         setSelectedGroup(group)
         axios
         .get(`http://localhost:3000/groups`, {

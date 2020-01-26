@@ -41,8 +41,10 @@ module.exports = (db) => {
 
    router.post('/', (req,res) => {
 
+    console.log("req.body", req.body)
 
-     let query = {
+
+    query = {
        text: `INSERT into groupmembers (user_id, group_id)
        VALUES ($1, $2)`,
        values: [

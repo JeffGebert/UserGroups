@@ -3,6 +3,7 @@ import "./UnselectedUserListItem.scss";
 
 
 export default function UnslectedUserListItem(props) {
+    console.log("props", props)
 
 return (
     <div className = "group-list-item">

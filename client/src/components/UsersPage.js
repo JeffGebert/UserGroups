@@ -68,7 +68,6 @@ export default function UsersPage(props) {
                     setName({ ...name, firstname: event.target.value})
                 }
                 />
-                <label>Last Name:</label>
                 <input
                 type="text"
                 className="input-field"
