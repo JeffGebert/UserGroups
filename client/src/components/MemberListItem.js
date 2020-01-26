@@ -9,7 +9,7 @@ return (
         <span className = "first-name">{props.memberfirstname} </span>
         <span className = "last-name">{props.memberlastname}</span>
         <button className = "edit">Edit</button>
-        <button className = "Delete" onClick={event => props.ondeletegroupmember(event,props.id)}>Delete</button>
+        <button className = "Delete" onClick={event => props.ondeletegroupmember(event,props.groupmembersid)}>Delete</button>
     </div>
 )
 

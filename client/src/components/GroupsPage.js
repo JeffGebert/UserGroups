@@ -21,16 +21,20 @@ export default function GroupsPage(props) {
     
     function update() {
 
-        console.log("selectedGroup", selectedGroup)
  
         if (selectedGroup!=null) {
             axios
             .get(`http://localhost:3000/groupmembers`, {
                 params: { groupname: selectedGroup }}).then(res =>{
-                    console.log("res.data", res.data)
                     setMembers(res.data)
                 }) 
-                
+            axios
+            .get(`http://localhost:3000/groupmembers`, {
+                params: { groupname: selectedGroup,
+                            unselected:true,
+                        }}).then(res =>{
+                    setunselectedUsers(res.data)
+                })               
             } else {
             axios
                 .get(`http://localhost:3000/groups`)
@@ -50,9 +54,12 @@ export default function GroupsPage(props) {
     }
     
     function onDeleteGroupMember(ev, id) {
+        console.log("id", id)
         ev.preventDefault();
         axios
         .delete(`http://localhost:3000/groupmembers`, { data: { groupmembers_id: id } }).then(response => {
+            setTracker(tracker+1)
+
         })
     }
 

@@ -9,11 +9,13 @@ import UsersPage from "./UsersPage";
 
 
 export default function MemberList(props) {
+    console.log("props", props)
     
     const list = props.members.map((members,index) => {
         return (
             <MemberListItem
               key={index}
+              groupmembersid={members.groupmembers_id}
               id={members.id}
               memberfirstname={members.first_name}
               memberlastname={members.last_name}
@@ -26,7 +28,7 @@ export default function MemberList(props) {
         return (
             <UnslectedUserListItem
                 key={index}
-                id = {users.user_id}
+                id = {users.id}
                 firstname={users.first_name}
                 lastname={users.last_name}
                 addmember={props.addmember}
