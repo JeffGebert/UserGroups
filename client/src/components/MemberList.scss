@@ -1,7 +1,6 @@
 .members-list {
     align-items:center;
-    border:3px solid red;
-    width:400px;
+    width:500px;
 }
 
 .member-header{
@@ -14,6 +13,9 @@
     border-radius:4px;
     font-size:15px;
 }
-.click-notify {
-    top:25px;
+.member-list {
+    margin-top:30px;
+}
+.click-notify{
+    font-size:24px;
 }

@@ -9,7 +9,11 @@
 }
 
 .members-buttons {
-    width:170px;
+    display:flex;
+}
+
+.members-edit {
+    width:500px;
     display:flex;
     justify-content: space-between;
 }

@@ -9,6 +9,11 @@ import { Link } from "react-router-dom";
 
 
 export default function GroupsPage(props) {
+
+    const [name, setName] = useState({
+        firstname:"",
+        lastname:""
+    });
     
     const [groupname, setGroupname] = useState({
         groupname:""
@@ -51,10 +56,17 @@ export default function GroupsPage(props) {
                 
         }
     }
+
+    const modify = function (modifiedName) {
+
+        return axios.put(`http://localhost:3000/users`, modifiedName).then(res =>{
+            setTracker(tracker+1)
+        })
+
+    }
     
     function onDelete(ev, group) {
-        console.log("group", group)
-        console.log("Selected Group", selectedGroup)
+
         ev.preventDefault();
         axios
         .delete(`http://localhost:3000/groups`, { data: { group_id: group } }).then(response => {
@@ -165,7 +177,7 @@ export default function GroupsPage(props) {
         </div>
         <div className="member-list">
             {members !== [] ? (
-            <MemberList members={members} ondeletegroupmember={onDeleteGroupMember} unselectedUsers={unselectedUsers} addmember={addMember} selectedgroup={selectedGroup}/>
+            <MemberList members={members} modify2={modify} name={name} ondeletegroupmember={onDeleteGroupMember} unselectedUsers={unselectedUsers} addmember={addMember} selectedgroup={selectedGroup}/>
             ) : (
                 null
             )}

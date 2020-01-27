@@ -35,8 +35,6 @@
     width:900px;
     justify-content: center;
     align-self:center;
-    border: 3px solid black;
-    background-color: green;
     
 }
 
@@ -45,7 +43,6 @@
     align-items:center;
     height:200px;
     display:flex;
-    background-color: yellow;
 }
 
 .group-list {
@@ -62,14 +59,12 @@
     align-self:center;
 }
 .container2 {
-    border:2px solid green;
     display:flex;
     height:100vh;
     flex-direction: column;
     width:75vw;
 }
 .wrapper2 {
-    border:2px solid red;
     height:100vh;
     display:flex;
     justify-content: center;

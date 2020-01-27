@@ -7,7 +7,7 @@ import UnslectedUserListItem from "./UnselectedUserListItem";
 
 
 export default function MemberList(props) {
-    let selectedgroup = props.selectedgroup;
+
     const list = props.members.map((members,index) => {
         return (
             <MemberListItem
@@ -17,6 +17,8 @@ export default function MemberList(props) {
               memberfirstname={members.first_name}
               memberlastname={members.last_name}
               ondeletegroupmember={props.ondeletegroupmember}
+              modify2={props.modify2}
+              selectedgroup={props.selectedgroup}
             />
         );
     });
@@ -37,7 +39,7 @@ export default function MemberList(props) {
         return (
             <div>
         
-                {selectedgroup ? (
+                {props.selectedgroup ? (
                     <div className = "member-header">
                         <h1>{props.selectedgroup} members</h1>
                         <div className="members-list">{list}</div>

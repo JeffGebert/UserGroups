@@ -14,10 +14,10 @@ export default function GroupListItem(props) {
 
 
 return (
-    <div className = "group-list-item">
+    <div className = "group-list-item2">
     {editing1 ? (
 
-        <form autoComplete ="off" onSubmit={event => props.modifygroup(modifiedGroup)}>
+        <form className = "edit-group" autoComplete ="off" onSubmit={event => props.modifygroup(modifiedGroup)}>
         <input
                 type = "text"
                 placeholder = {props.groupname}
@@ -26,8 +26,10 @@ return (
                     setmodifiedGroup({ ...modifiedGroup, groupname: event.target.value})
                 }
         />
+        <div className = "buttons-enclosure">
         <button className = "save">Save</button>
         <button className = "delete" onClick={event => setEditing1(false)}>Cancel</button>
+        </div>
         </form>
 
     ) : (
