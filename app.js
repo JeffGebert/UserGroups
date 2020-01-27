@@ -18,13 +18,12 @@ const groupmembersRouter = require('./routes/groupmembers');
 
 
 const app = express();
+const connectionString = process.env.DATABASE_URL
 const db = new Pool({
-  host:process.env.DB_HOST,
-  port:process.env.DB_PORT,
-  user:process.env.DB_USER,
-  password:process.env.DB_PASS,
-  database:process.env.DB_NAME
+  connectionString: connectionString,
+ 
 });
+
 
 
 db.connect();
