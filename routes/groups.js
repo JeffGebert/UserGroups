@@ -59,13 +59,13 @@ module.exports = (db) => {
   
   
       let query = {
-        text: `DELETE FROM groups WHERE groups.id = $1`,
+        text: `DELETE FROM groups WHERE groups.id = $1 RETURNING groups.id, groups.name`,
         values: [
           req.body.group_id
         ]
       }
       db.query(query).then(data  => {
-        res.send("deleted from db")
+        res.send(data)
       })
   
     })

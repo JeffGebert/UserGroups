@@ -35,21 +35,33 @@ export default function GroupsPage(props) {
                             unselected:true,
                         }}).then(res =>{
                     setunselectedUsers(res.data)
-                })               
-            } else {
+                })   
+            axios
+            .get(`http://localhost:3000/groups`)
+            .then(res => {
+                setGroups(res.data)
+            });
+                            
+        } else {
             axios
                 .get(`http://localhost:3000/groups`)
                 .then(res => {
                     setGroups(res.data)
                 });
                 
-            }
+        }
     }
     
     function onDelete(ev, group) {
+        console.log("group", group)
+        console.log("Selected Group", selectedGroup)
         ev.preventDefault();
         axios
         .delete(`http://localhost:3000/groups`, { data: { group_id: group } }).then(response => {
+            //needed when group is selected to setSelected to null if you delete a group you currently have selected
+            if (response.data.rows[0].id ===group && response.data.rows[0].name === selectedGroup) {
+                setSelectedGroup();
+            }
             setTracker(tracker+1)
         })
     }
@@ -121,10 +133,11 @@ export default function GroupsPage(props) {
 
 
     return (
-        <div>
+        <div className="wrapper2">
+        <div className="container2">
         <div className="group-form">
-            <form autoComplete ="off" onSubmit={event => onSave(event)}>
-                <label>Group Name:</label>
+            <form className="form-entry" autoComplete ="off" onSubmit={event => onSave(event)}>
+                <div className = "input-group">
                 <input
                 type="text"
                 className="input-field"
@@ -135,12 +148,13 @@ export default function GroupsPage(props) {
                 }
                 />
                 <button className="create-user">Add Group</button>
-                <div>
+                </div>
+                <div className ="nav-bar">
                 <Link to="/">
                 <button className="home-button">Home</button>
                 </Link>
                 <Link to="/users">
-                <button className="small-users-button">Users</button>
+                <button className="small-users-button2">Users</button>
                 </Link>
                 </div>
 
@@ -151,11 +165,12 @@ export default function GroupsPage(props) {
         </div>
         <div className="member-list">
             {members !== [] ? (
-                <MemberList members={members} ondeletegroupmember={onDeleteGroupMember} unselectedUsers={unselectedUsers} addmember={addMember} selectedgroup={selectedGroup}/>
+            <MemberList members={members} ondeletegroupmember={onDeleteGroupMember} unselectedUsers={unselectedUsers} addmember={addMember} selectedgroup={selectedGroup}/>
             ) : (
                 null
             )}
 
+        </div>
         </div>
         </div>
     )

@@ -41,7 +41,7 @@ return (
                 <button className = "save">Save</button>
                 </form>
                 <div className = "edit-delete-container">
-                <button className = "delete" onClick={event => props.ondelete(event,props.id)} onClick={event => setEditing(false)}>Delete</button>
+                <button className = "delete" onClick={event => setEditing(false)}>Cancel</button>
                 </div>
                 </div>
 

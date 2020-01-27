@@ -26,8 +26,8 @@ return (
                     setmodifiedGroup({ ...modifiedGroup, groupname: event.target.value})
                 }
         />
-        <button className = "Save">Save</button>
-        <button className = "Delete" onClick={event => props.ondelete(event,props.id)}>Delete</button>
+        <button className = "save">Save</button>
+        <button className = "delete" onClick={event => setEditing1(false)}>Cancel</button>
         </form>
 
     ) : (
@@ -36,7 +36,7 @@ return (
         <span className = "name" onClick={event => props.selectgroup(props.groupname)}>{props.groupname}</span>
         <div className = "buttons-enclosure">
         <button className = "edit" onClick={event => setEditing1(true)}>Edit</button>
-        <button className = "Delete" onClick={event => props.ondelete(event,props.id)}>Delete</button>
+        <button className = "delete" onClick={event => props.ondelete(event,props.id)}>Delete</button>
         </div>
         </div>
 

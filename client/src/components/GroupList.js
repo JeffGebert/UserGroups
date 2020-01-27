@@ -22,7 +22,7 @@ export default function GroupList(props) {
         return (
 
         <div>
-            <h1>List of groups</h1>
+            <h1>Groups</h1>
             <div className="groups-list">{list}</div>
         </div>
         )

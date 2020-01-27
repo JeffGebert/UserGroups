@@ -38,8 +38,8 @@ export default function MemberList(props) {
             <div>
         
                 {selectedgroup ? (
-                    <div>
-                        <h1>List of {props.selectedgroup} members</h1>
+                    <div className = "member-header">
+                        <h1>{props.selectedgroup} members</h1>
                         <div className="members-list">{list}</div>
                         <Popup trigger={<button className="add-member"> Add Member</button>} position="right">
                         <div className="unselected-users-list">{unselectedUsersList}</div>
@@ -47,7 +47,7 @@ export default function MemberList(props) {
                     </div>
         
                 ) : (       
-                    <span>Click on a group!</span>
+                    <span className= "click-notify">Click on a group name!</span>
                 )}
 
         </div>
