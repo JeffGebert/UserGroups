@@ -1,16 +1,13 @@
 import React from "react";
 import "./MemberList.scss";
 import MemberListItem from "./MemberListItem";
-import unselectedUserListItem from "./UnselectedUserListItem";
 import Popup from "reactjs-popup";
 import UnslectedUserListItem from "./UnselectedUserListItem";
-import UsersPage from "./UsersPage";
 
 
 
 export default function MemberList(props) {
-    console.log("props", props)
-    
+    let selectedgroup = props.selectedgroup;
     const list = props.members.map((members,index) => {
         return (
             <MemberListItem
@@ -38,14 +35,21 @@ export default function MemberList(props) {
         )
     });
         return (
-    
+            <div>
+        
+                {selectedgroup ? (
+                    <div>
+                        <h1>List of {props.selectedgroup} members</h1>
+                        <div className="members-list">{list}</div>
+                        <Popup trigger={<button className="add-member"> Add Member</button>} position="right">
+                        <div className="unselected-users-list">{unselectedUsersList}</div>
+                        </Popup>
+                    </div>
+        
+                ) : (       
+                    <span>Click on a group!</span>
+                )}
 
-        <div>
-            <h1>List of {props.selectedgroup} members</h1>
-            <div className="members-list">{list}</div>
-            <Popup trigger={<button className="add-member"> Add Member</button>} position="right">
-            <div className="unselected-users-list">{unselectedUsersList}</div>
-            </Popup>
         </div>
         )
 }

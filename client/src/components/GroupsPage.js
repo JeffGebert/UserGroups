@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./GroupsPage.scss";
 import GroupList from "./GroupList";
-import MemberList from "./MemberList"
+import MemberList from "./MemberList";
+import { Link } from "react-router-dom";
 
 
 
@@ -54,7 +55,6 @@ export default function GroupsPage(props) {
     }
     
     function onDeleteGroupMember(ev, id) {
-        console.log("id", id)
         ev.preventDefault();
         axios
         .delete(`http://localhost:3000/groupmembers`, { data: { groupmembers_id: id } }).then(response => {
@@ -135,6 +135,14 @@ export default function GroupsPage(props) {
                 }
                 />
                 <button className="create-user">Add Group</button>
+                <div>
+                <Link to="/">
+                <button className="home-button">Home</button>
+                </Link>
+                <Link to="/users">
+                <button className="small-users-button">Users</button>
+                </Link>
+                </div>
 
             </form>
         </div>
@@ -142,7 +150,7 @@ export default function GroupsPage(props) {
             <GroupList ondelete={onDelete} groups={group} selectgroup={selectGroup} modifygroup={modifyGroup}/>
         </div>
         <div className="member-list">
-            {members != [] ? (
+            {members !== [] ? (
                 <MemberList members={members} ondeletegroupmember={onDeleteGroupMember} unselectedUsers={unselectedUsers} addmember={addMember} selectedgroup={selectedGroup}/>
             ) : (
                 null

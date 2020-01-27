@@ -1,0 +1,76 @@
+.home-button {
+    background-color:purple;
+    border-radius : 4px;
+    color:white;
+
+}
+
+.small-groups-button {
+    background-color:  orangered;
+    border-radius: 4px;
+    color:black;
+}
+
+.wrapper {
+    height:100vh;
+    display:flex;
+    justify-content: center;
+}
+
+.user-form {
+    align-self:center;
+    max-width: 75%;
+}
+
+.container {
+    display:flex;
+    height:100vh;
+    flex-direction: column;
+    width:50vw;
+}
+
+.user-list {
+    display:flex;
+    flex-direction: column;
+    align-self: center;
+    width:1600px;
+    justify-content: center;
+    align-items:center;
+}
+
+.user-form {
+    display:flex;
+    height:100px;
+    width:1600px;
+    justify-content: center;
+    align-items: center;
+
+}
+.user-form input {
+    margin-right: 30px;
+    width:200px;
+    height:30px;
+    font-size:24px;
+
+}
+.user-form button {
+    background-color: rgb(87, 189, 87);
+    height:40px;
+    border-radius: 4px;
+
+}
+
+.nav {
+    height: 200px;
+    display:flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.nav button {
+    height:60px;
+    width:300px;
+    font-size:30px;
+    
+}
+

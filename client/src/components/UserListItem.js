@@ -18,9 +18,10 @@ export default function UserListItem(props) {
 return (
     <div className = "user-list-item">
         { editing ? (
-                <div className = "input-enclosure">
+                <div className = "input-enclosure-edit2">
                 <form autoComplete ="off" onSubmit={event => props.modify(modifiedName)}>
                 <input
+                className = "edit-input"
                 type = "text"
                 placeholder = {props.firstname}
                 value={modifiedName.firstname}
@@ -29,6 +30,7 @@ return (
                 }
                 />
                 <input
+                className = "edit-input"
                 type = "text"
                 placeholder = {props.lastname}
                 value={modifiedName.lastname}
@@ -36,17 +38,21 @@ return (
                     setmodifiedName({ ...modifiedName, lastname: event.target.value})
                 }
                 />
-                <button className = "Save">Save</button>
+                <button className = "save">Save</button>
                 </form>
-                <button className = "Delete" onClick={event => props.ondelete(event,props.id)}>Delete</button>
+                <div className = "edit-delete-container">
+                <button className = "delete" onClick={event => props.ondelete(event,props.id)} onClick={event => setEditing(false)}>Delete</button>
+                </div>
                 </div>
 
 
             ) : (
-                <div className = "input-enclosure">
-                <span className = "name">{props.firstname} {props.lastname}</span>
-                <button className = "edit" onClick={event => setEditing(true)}>Edit</button>
-                <button className = "Delete" onClick={event => props.ondelete(event,props.id)}>Delete</button>
+                <div className = "input-enclosure2">
+                    <span className = "name">{props.firstname} {props.lastname}</span>
+                    <div className = "buttons-enclosure2">
+                    <button className = "edit" onClick={event => setEditing(true)}>Edit</button>
+                    <button className = "delete" onClick={event => props.ondelete(event,props.id)}>Delete</button>
+                    </div>
                 </div>
 
             )}

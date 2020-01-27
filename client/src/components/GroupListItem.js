@@ -32,10 +32,12 @@ return (
 
     ) : (
     
-        <div className = "group-list-item">
+        <div className = "input-enclosure">
         <span className = "name" onClick={event => props.selectgroup(props.groupname)}>{props.groupname}</span>
+        <div className = "buttons-enclosure">
         <button className = "edit" onClick={event => setEditing1(true)}>Edit</button>
         <button className = "Delete" onClick={event => props.ondelete(event,props.id)}>Delete</button>
+        </div>
         </div>
 
     )}

@@ -23,7 +23,7 @@ export default function UserList(props) {
     });
         return (
 
-        <div>
+        <div className="userlist">
             <h1>List of Users</h1>
             <div className="user-list">{list}</div>
         </div>

@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./UsersPage.scss";
 import UserList from "./UserList";
-import EasyEdit, { Types } from "react-easy-edit";
+import { Link } from "react-router-dom";
+
+
 
 
 export default function UsersPage(props) {
@@ -47,6 +49,9 @@ export default function UsersPage(props) {
     function onSave(ev) {
         ev.preventDefault();
         createUser(name)
+        setName({...name,
+            firstname:"",
+            lastname:""})
     
     }
 
@@ -56,8 +61,17 @@ export default function UsersPage(props) {
 
 
     return (
-        <div>
-        <div className="user-form">
+        <div className="wrapper">
+        <div className="container">
+          <div className="nav">
+          <Link to="/">
+          <button className="home-button">Home</button>
+          </Link>
+          <Link to="/groups">
+          <button className="small-groups-button">Groups</button>
+          </Link>
+          </div>
+          <div className="user-form">
             <form autoComplete ="off" onSubmit={event => onSave(event)}>
                 <input
                 type="text"
@@ -79,9 +93,10 @@ export default function UsersPage(props) {
                 />
                 <button className="create-user">Add User</button>
             </form>
-        </div>
+          </div>
         <div className="user-list">
             <UserList onsave={onSave} ondelete={onDelete} modify={modify} users={users}/>
+        </div>
         </div>
         </div>
     )
