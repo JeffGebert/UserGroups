@@ -55,7 +55,6 @@ module.exports = (db) => {
 
 
    router.delete('/', (req,res) => {
-     console.log("req.body", req.body)
 
       query = {
         text: `DELETE FROM groupmembers WHERE groupmembers.id = $1`,
