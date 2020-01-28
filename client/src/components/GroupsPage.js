@@ -30,26 +30,26 @@ export default function GroupsPage(props) {
  
         if (selectedGroup!=null) {
             axios
-            .get(`http://localhost:3000/groupmembers`, {
+            .get(`groupmembers`, {
                 params: { groupname: selectedGroup }}).then(res =>{
                     setMembers(res.data)
                 }) 
             axios
-            .get(`http://localhost:3000/groupmembers`, {
+            .get(`groupmembers`, {
                 params: { groupname: selectedGroup,
                             unselected:true,
                         }}).then(res =>{
                     setunselectedUsers(res.data)
                 })   
             axios
-            .get(`http://localhost:3000/groups`)
+            .get(`groups`)
             .then(res => {
                 setGroups(res.data)
             });
                             
         } else {
             axios
-                .get(`http://localhost:3000/groups`)
+                .get(`groups`)
                 .then(res => {
                     setGroups(res.data)
                 });
@@ -59,7 +59,7 @@ export default function GroupsPage(props) {
 
     const modify = function (modifiedName) {
 
-        return axios.put(`http://localhost:3000/users`, modifiedName).then(res =>{
+        return axios.put(`users`, modifiedName).then(res =>{
             setTracker(tracker+1)
         })
 
@@ -69,7 +69,7 @@ export default function GroupsPage(props) {
 
         ev.preventDefault();
         axios
-        .delete(`http://localhost:3000/groups`, { data: { group_id: group } }).then(response => {
+        .delete(`groups`, { data: { group_id: group } }).then(response => {
             //needed when group is selected to setSelected to null if you delete a group you currently have selected
             if (response.data.rows[0].id ===group && response.data.rows[0].name === selectedGroup) {
                 setSelectedGroup();
@@ -81,7 +81,7 @@ export default function GroupsPage(props) {
     function onDeleteGroupMember(ev, id) {
         ev.preventDefault();
         axios
-        .delete(`http://localhost:3000/groupmembers`, { data: { groupmembers_id: id } }).then(response => {
+        .delete(`groupmembers`, { data: { groupmembers_id: id } }).then(response => {
             setTracker(tracker+1)
 
         })
@@ -90,21 +90,21 @@ export default function GroupsPage(props) {
     const addMember = function(ev, id, selectedGroup) {
         ev.preventDefault()
         axios
-        .post(`http://localhost:3000/groupmembers`, { data: {user_id: id, selected_group:selectedGroup, group_id:groupID }}).then(response => {
+        .post(`groupmembers`, { data: {user_id: id, selected_group:selectedGroup, group_id:groupID }}).then(response => {
             setTracker(tracker+1)
         })
 
 
     }
     const modifyGroup = function(modifiedGroup) {
-        return axios.put(`http://localhost:3000/groups`, modifiedGroup).then(res =>{
+        return axios.put(`groups`, modifiedGroup).then(res =>{
             setTracker(tracker+1)
         })
 
     }
     
     const createGroup = function(groupname) {
-        return axios.post(`http://localhost:3000/groups`, groupname).then(res =>{
+        return axios.post(`groups`, groupname).then(res =>{
             setTracker(tracker+1)
         });
     };
@@ -112,18 +112,18 @@ export default function GroupsPage(props) {
     const selectGroup = function (group) {
         setSelectedGroup(group)
         axios
-        .get(`http://localhost:3000/groups`, {
+        .get(`groups`, {
             params: { group: group }}).then(res =>{
                 setGroupID(res.data[0].id)
             })
         
         axios
-        .get(`http://localhost:3000/groupmembers`, {
+        .get(`groupmembers`, {
             params: { groupname: group }}).then(res =>{
                 setMembers(res.data)
             })
         axios
-        .get(`http://localhost:3000/groupmembers`, {
+        .get(`groupmembers`, {
         params: { groupname: group,
                     unselected:true,
                 }}).then(res =>{

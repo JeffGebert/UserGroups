@@ -19,7 +19,7 @@ export default function UsersPage(props) {
 
     function update() {
       axios
-        .get(`http://localhost:3000/users`)
+        .get(`users`)
         .then(res => {
             setUsers(res.data)
         });
@@ -28,19 +28,19 @@ export default function UsersPage(props) {
     function onDelete(ev,user) {
         ev.preventDefault();
         axios
-        .delete(`http://localhost:3000/users`, { data: { user_id: user } }).then(response => {
+        .delete(`users`, { data: { user_id: user } }).then(response => {
             setTracker(tracker+1)
         })
     }
     
     const createUser = function(user) {
-        return axios.post(`http://localhost:3000/users`, user).then(res =>{
+        return axios.post(`users`, user).then(res =>{
             setTracker(tracker+1)
         });
     };
 
     const modify = function (modifiedName) {
-        return axios.put(`http://localhost:3000/users`, modifiedName).then(res =>{
+        return axios.put(`users`, modifiedName).then(res =>{
             setTracker(tracker+1)
         })
 

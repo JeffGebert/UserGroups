@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import axios from "axios";
+
+
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
@@ -10,3 +13,9 @@ ReactDOM.render(<App />, document.getElementById('root'));
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
+
+
+if (process.env.REACT_APP_API_BASE_URL) {
+  console.log("process", process.env.REACT_APP_API_BASE_URL)
+    axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
+  }
